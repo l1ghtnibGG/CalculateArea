@@ -47,7 +47,7 @@ namespace Calculate
                         };
                         x = triangle.Area();
                         Console.WriteLine($"Square of triangle is {x}");
-                        if (triangle.Rectangle())
+                        if (triangle.isRectangle())
                         {
                             Console.WriteLine("It's right-angle triangle");
                         }
@@ -58,7 +58,7 @@ namespace Calculate
 
                         Circle circle = new Circle()
                         {
-                            r = x
+                            R = x
                         };
                         x = circle.Area();
                         Console.WriteLine($"Square of circle is {x}");
@@ -78,10 +78,16 @@ namespace Calculate
 
     public class Square : Shape
     {
-        public double Side { get; set; }
+        private double side;
+
+        public double Side
+        {
+            get => side;
+            set => side = value;
+        }
         public override double Area()
         {
-            return Side * Side;
+            return side * side;
         }
     }
 
@@ -105,7 +111,7 @@ namespace Calculate
             set => c = value;
         }
 
-        public bool Rectangle()
+        public bool isRectangle()
         {
             bool max = c * c == (a * a) + (b * b) ? true : a * a == (c * c) + (b * b) ? true : b * b == (c * c) + (a * a) ? true : false;
 
@@ -128,7 +134,12 @@ namespace Calculate
 
     public class Circle : Shape
     {
-        public double r { get; set; }
+        private double r;
+        public double R 
+        {
+            get => r;
+            set => r = value;
+        }
 
         public override double Area()
         {
