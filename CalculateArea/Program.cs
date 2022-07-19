@@ -1,16 +1,12 @@
-﻿using System;
-using System.Reflection.Metadata;
-using Calculate;
+﻿using Calculate;
 
 namespace CalculateArea
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main()
         {
-            Shape shape = new Shape();
-            shape.Display();
-
+            Shape.Display();
         }
     }
 }
