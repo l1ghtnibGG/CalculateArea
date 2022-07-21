@@ -3,7 +3,7 @@
 
 namespace Calculate
 {
-    public class Shape
+    public abstract class Shape
     {
         public static void Display()
         {
@@ -99,10 +99,7 @@ namespace Calculate
             }
         }
 
-        public virtual double Area()
-        {
-            return 0;
-        }
+        public abstract double Area();
     }
 }
 

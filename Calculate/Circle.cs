@@ -6,9 +6,6 @@ namespace Calculate
     {
         public double R { get; set; }
 
-        public override double Area()
-        {
-            return Math.PI * Math.Pow(R, R);
-        }
+        public override double Area() => Math.PI * Math.Pow(R, R);
     }
 }

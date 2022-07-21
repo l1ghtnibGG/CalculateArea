@@ -6,9 +6,6 @@ namespace Calculate
     {
         public double Side { get; set; }
 
-        public override double Area()
-        {
-            return Side * Side;
-        }
+        public override double Area() => Side * Side;
     }
 }
