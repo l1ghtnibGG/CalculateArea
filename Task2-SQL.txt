@@ -1,0 +1,6 @@
+select ProductName, CategoryName from Products
+left join Interim 
+	on Products.Id = Interim.ProductId
+left join Categories 
+	on Categories.Id = Interim.CategoryId
+group by ProductName, CategoryName;
