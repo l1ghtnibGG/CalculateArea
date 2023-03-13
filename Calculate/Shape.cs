@@ -28,10 +28,7 @@ namespace Calculate
                             Console.WriteLine("Error input. Try again");
                         }
 
-                        var square = new Square
-                        {
-                            Side = x
-                        };
+                        var square = new Square(x);
 
                         Console.WriteLine($"Square of square is {square.Area()}");
                         break;
@@ -61,12 +58,7 @@ namespace Calculate
                             Console.WriteLine("Error input. Try again");
                         }
 
-                        var triangle = new Triangle()
-                        {
-                            A = sideA,
-                            B = sideB,
-                            C = sideC
-                        };
+                        var triangle = new Triangle(sideA, sideB, sideC);
 
                         Console.WriteLine($"Square of triangle is {triangle.Area()}");
 
@@ -82,10 +74,7 @@ namespace Calculate
                             Console.WriteLine("Error input. Try again");
                         }
 
-                        var circle = new Circle()
-                        {
-                            R = x
-                        };
+                        var circle = new Circle(x);
 
                         Console.WriteLine($"Square of circle is {circle.Area()}");
                         break;
