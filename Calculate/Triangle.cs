@@ -4,58 +4,55 @@ namespace Calculate
 {
     public class Triangle : Shape
     {
-        private double _sideA;
-        private double _sideB;
-        private double _sideC;
+        private readonly Lazy<bool> _isRightAngle;
+        
+        public double SideA { get; }
+        public double SideB { get; }
+        public double SideC { get; }
 
+        public bool IsRightAngle => _isRightAngle.Value;
+        
         public Triangle()
         {
-            _sideA = 1;
-            _sideB = 1;
-            _sideC = 1;
+            SideA = 1;
+            SideB = 1;
+            SideC = 1;
+
+            _isRightAngle = new Lazy<bool>(CheckIsRightAngle);
         }
 
-        public Triangle(double a, double b, double c)
+        public Triangle(double sideA, double sideB, double sideC)
         {
-            if (a <= 0 || b <= 0 || c <= 0)
-            {
-                throw new ArgumentException("Less or equal to zero");
-            }
-
-            if (a + b <= c || a + c <= b || b + c <= a)
-            {
+            if (sideA <= 0 || sideB <= 0 || sideC <= 0)
+                throw new ArgumentException("A triangle side can't be less or equal to zero");
+            
+            if (sideA + sideB <= sideC || sideA + sideC <= sideB || sideB + sideC <= sideA)
                 throw new ArgumentException("Error input, is not a triangle");
-            }
-
-            _sideA = a;
-            _sideB = b;
-            _sideC = c;
+            
+            SideA = sideA;
+            SideB = sideB;
+            SideC = sideC;
+            
+            _isRightAngle = new Lazy<bool>(CheckIsRightAngle);
         }
 
-        public double A 
-        { 
-            get { return _sideA; } 
-            set { _sideA = value; }
-        }
+        
+        /// <summary>
+        /// Checking for right angle
+        /// </summary>
+        /// <returns></returns>
+        private bool CheckIsRightAngle() => Math.Pow(SideC, 2) == Math.Pow(SideA, 2) + Math.Pow(SideB, 2) ||
+                                            Math.Pow(SideA, 2) == Math.Pow(SideC, 2) + Math.Pow(SideB, 2) || 
+                                            Math.Pow(SideB, 2) == Math.Pow(SideA, 2) + Math.Pow(SideC, 2);
 
-        public double B
-        {
-            get { return _sideB; }
-            set { _sideB = value; }
-        }
-
-        public double C
-        {
-            get { return _sideC; }
-            set { _sideC = value; }
-        }
-
-        public bool IsRectangle() => _sideC * _sideC == _sideA * _sideA + _sideB * _sideB || _sideA * _sideA == _sideC * _sideC + _sideB * _sideB || _sideB * _sideB == _sideC * _sideC + _sideA * _sideA;
-
+        
+        /// <summary>
+        /// Calculate triangle's area
+        /// </summary>
         public override double Area()
         {
-            var p = 0.5 * (_sideA + _sideB + _sideC);
-            return Math.Sqrt(p * (p - _sideA) * (p - _sideB) * (p - _sideC));
+            var semiPerimeter = 0.5 * (SideA + SideB + SideC);
+            return Math.Sqrt(semiPerimeter * (semiPerimeter - SideA) * (semiPerimeter - SideB) * (semiPerimeter - SideC));
         }
     }
 }

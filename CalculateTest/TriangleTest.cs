@@ -12,7 +12,7 @@ namespace CalculateTest
         [TestCase(1, 0, 5)]
         public void TriangleWrongParam(double a, double b, double c)
         {
-            Assert.Throws<ArgumentException>(() => new Triangle(a, b, c), "Less or equal to zero");
+            Assert.Throws<ArgumentException>(() => new Triangle(a, b, c), "A triangle side can't be less or equal to zero");
         }
 
         [TestCase(1, 3, 2)]
@@ -28,9 +28,9 @@ namespace CalculateTest
         {
             var triangle = new Triangle();
 
-            Assert.AreEqual(triangle.A, 1);
-            Assert.AreEqual(triangle.B, 1);
-            Assert.AreEqual(triangle.C, 1);
+            Assert.AreEqual(triangle.SideA, 1);
+            Assert.AreEqual(triangle.SideB, 1);
+            Assert.AreEqual(triangle.SideC, 1);
         }
 
         [TestCase(3, 2, 4)]
@@ -40,9 +40,9 @@ namespace CalculateTest
         {
             var triangle = new Triangle(a, b, c);
 
-            Assert.AreEqual(triangle.A, a);
-            Assert.AreEqual(triangle.B, b);
-            Assert.AreEqual(triangle.C, c);
+            Assert.AreEqual(triangle.SideA, a);
+            Assert.AreEqual(triangle.SideB, b);
+            Assert.AreEqual(triangle.SideC, c);
         }
 
         [TestCase(3, 6, 4)]
@@ -65,7 +65,7 @@ namespace CalculateTest
         {
             var triangle = new Triangle(a, b, c);
 
-            Assert.False(triangle.IsRectangle());
+            Assert.False(triangle.IsRightAngle);
         }
 
         [TestCase(3, 4, 5)]
@@ -75,7 +75,7 @@ namespace CalculateTest
         {
             var triangle = new Triangle(a, b, c);
 
-            Assert.True(triangle.IsRectangle());
+            Assert.True(triangle.IsRightAngle);
         }
     }
 }

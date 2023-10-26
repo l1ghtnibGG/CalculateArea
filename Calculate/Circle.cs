@@ -4,30 +4,24 @@ namespace Calculate
 {
     public class Circle : Shape
     {
-        private const double PI = Math.PI;
-
-        private double _radius;
+        public double Radius { get; }
+        
         public Circle()
         {
-            _radius = 1;
+            Radius = 1;
         }
 
-        public Circle(double r)
+        public Circle(double radius)
         {
-            if (r <= 0)
-            {
-                throw new ArgumentException("Less or equal to zero");
-            }
+            if (radius <= 0)
+                throw new ArgumentException("Radius can't be less or equal to zero");
 
-            _radius = r;
+            Radius = radius;
         }
 
-        public double R 
-        { 
-            get { return _radius; } 
-            set { _radius = value; } 
-        }
-
-        public override double Area() => PI * _radius * _radius;
+        /// <summary>
+        /// Calculate circle's area
+        /// </summary>
+        public override double Area() => Math.PI * Math.Pow(Radius, 2d);
     }
 }

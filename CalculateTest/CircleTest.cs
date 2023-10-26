@@ -13,7 +13,7 @@ namespace CalculateTest
         [TestCase(0)]
         public void CircleWrongParam(double x)
         {
-            Assert.Throws<ArgumentException>(() => new Circle(x), "Less or equal to zero");
+            Assert.Throws<ArgumentException>(() => new Circle(x), "Radius can't be less or equal to zero");
         }
 
         [Test]
@@ -21,7 +21,7 @@ namespace CalculateTest
         {
             var circle = new Circle();
 
-            Assert.AreEqual(circle.R, 1);
+            Assert.AreEqual(circle.Radius, 1);
         }
 
         [TestCase(3)]
@@ -31,7 +31,7 @@ namespace CalculateTest
         {
             var circle = new Circle(x);
 
-            Assert.AreEqual(circle.R, x);
+            Assert.AreEqual(circle.Radius, x);
         }
 
         [TestCase(1)]
@@ -41,7 +41,7 @@ namespace CalculateTest
         {
             var circle = new Circle(x);
 
-            var expected = x * x * Math.PI;
+            var expected = Math.Pow(x, 2d) * Math.PI;
 
             Assert.AreEqual(circle.Area(), expected);
         }
