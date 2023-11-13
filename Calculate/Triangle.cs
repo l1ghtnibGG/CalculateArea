@@ -4,19 +4,23 @@ namespace Calculate
 {
     public class Triangle : Shape
     {
-        private readonly Lazy<bool> _isRightAngle;
+        private readonly double _sideA;
+        private readonly double _sideB;
+        private readonly double _sideC;
         
-        public double SideA { get; }
-        public double SideB { get; }
-        public double SideC { get; }
+        private readonly Lazy<bool> _isRightAngle;
+
+        public double SideA => _sideA;
+        public double SideB => _sideB;
+        public double SideC => _sideC;
 
         public bool IsRightAngle => _isRightAngle.Value;
         
         public Triangle()
         {
-            SideA = 1;
-            SideB = 1;
-            SideC = 1;
+            _sideA = 1;
+            _sideB = 1;
+            _sideC = 1;
 
             _isRightAngle = new Lazy<bool>(CheckIsRightAngle);
         }
@@ -29,9 +33,9 @@ namespace Calculate
             if (sideA + sideB <= sideC || sideA + sideC <= sideB || sideB + sideC <= sideA)
                 throw new ArgumentException("Error input, is not a triangle");
             
-            SideA = sideA;
-            SideB = sideB;
-            SideC = sideC;
+            _sideA = sideA;
+            _sideB = sideB;
+            _sideC = sideC;
             
             _isRightAngle = new Lazy<bool>(CheckIsRightAngle);
         }
@@ -41,9 +45,9 @@ namespace Calculate
         /// Checking for right angle
         /// </summary>
         /// <returns></returns>
-        private bool CheckIsRightAngle() => Math.Pow(SideC, 2) == Math.Pow(SideA, 2) + Math.Pow(SideB, 2) ||
-                                            Math.Pow(SideA, 2) == Math.Pow(SideC, 2) + Math.Pow(SideB, 2) || 
-                                            Math.Pow(SideB, 2) == Math.Pow(SideA, 2) + Math.Pow(SideC, 2);
+        private bool CheckIsRightAngle() => Math.Pow(_sideC, 2) == Math.Pow(_sideA, 2) + Math.Pow(_sideB, 2) ||
+                                            Math.Pow(_sideA, 2) == Math.Pow(_sideC, 2) + Math.Pow(_sideB, 2) || 
+                                            Math.Pow(_sideB, 2) == Math.Pow(_sideA, 2) + Math.Pow(_sideC, 2);
 
         
         /// <summary>
@@ -51,8 +55,8 @@ namespace Calculate
         /// </summary>
         public override double Area()
         {
-            var semiPerimeter = 0.5 * (SideA + SideB + SideC);
-            return Math.Sqrt(semiPerimeter * (semiPerimeter - SideA) * (semiPerimeter - SideB) * (semiPerimeter - SideC));
+            var semiPerimeter = 0.5 * (_sideA + _sideB + _sideC);
+            return Math.Sqrt(semiPerimeter * (semiPerimeter - _sideA) * (semiPerimeter - _sideB) * (semiPerimeter - _sideC));
         }
     }
 }

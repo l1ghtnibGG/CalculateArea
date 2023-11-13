@@ -4,11 +4,12 @@ namespace Calculate
 {
     public class Circle : Shape
     {
-        public double Radius { get; }
+        private readonly double _radius;
+        public double Radius => _radius;
         
         public Circle()
         {
-            Radius = 1;
+            _radius = 1;
         }
 
         public Circle(double radius)
@@ -16,12 +17,12 @@ namespace Calculate
             if (radius <= 0)
                 throw new ArgumentException("Radius can't be less or equal to zero");
 
-            Radius = radius;
+            _radius = radius;
         }
 
         /// <summary>
         /// Calculate circle's area
         /// </summary>
-        public override double Area() => Math.PI * Math.Pow(Radius, 2d);
+        public override double Area() => Math.PI * Math.Pow(_radius, 2d);
     }
 }
