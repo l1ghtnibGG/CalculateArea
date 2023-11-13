@@ -1,6 +1,6 @@
-﻿using Calculate;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using System;
+using Calculate.Implementations;
 
 namespace CalculateTest
 {
@@ -11,13 +11,13 @@ namespace CalculateTest
         [TestCase(-1)]
         [TestCase(-4)]
         [TestCase(0)]
-        public void CircleWrongParam(double x)
+        public void GetCircleWithWrongParameters(double x)
         {
             Assert.Throws<ArgumentException>(() => new Circle(x), "Radius can't be less or equal to zero");
         }
 
         [Test]
-        public void CircleZeroParam()
+        public void GetCircleWithZeroParameters()
         {
             var circle = new Circle();
 
@@ -27,23 +27,35 @@ namespace CalculateTest
         [TestCase(3)]
         [TestCase(1)]
         [TestCase(15)]
-        public void SquareRightProperty(double x)
+        public void GetSquareRightProperty(double x)
         {
             var circle = new Circle(x);
 
             Assert.AreEqual(circle.Radius, x);
         }
 
-        [TestCase(1)]
-        [TestCase(3)]
+        [TestCase(47.8)]
+        [TestCase(8.7)]
         [TestCase(12)]
-        public void CircleArea(double x)
+        public void GetCircleAreaWithValidParameters(double x)
         {
             var circle = new Circle(x);
 
-            var expected = Math.Pow(x, 2d) * Math.PI;
+            var expected = Math.Pow(x, 2) * Math.PI;
 
-            Assert.AreEqual(circle.Area(), expected);
+            Assert.AreEqual(circle.GetArea(), expected);
+        }
+        
+        [TestCase(2.5)]
+        [TestCase(3.9)]
+        [TestCase(12)]
+        public void GetCirclePerimeterWithValidParameters(double x)
+        {
+            var circle = new Circle(x);
+
+            var expected = 2 * Math.PI * circle.Radius;
+
+            Assert.AreEqual(circle.GetPerimeter(), expected);
         }
     }
 }

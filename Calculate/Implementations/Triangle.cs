@@ -1,9 +1,12 @@
 ﻿using System;
+using Calculate.Interfaces;
 
-namespace Calculate
+namespace Calculate.Implementations
 {
-    public class Triangle : Shape
+    public class Triangle : IShape
     {
+        private const double Accuracy = 0.001;
+        
         private readonly double _sideA;
         private readonly double _sideB;
         private readonly double _sideC;
@@ -21,10 +24,10 @@ namespace Calculate
             _sideA = 1;
             _sideB = 1;
             _sideC = 1;
-
+            
             _isRightAngle = new Lazy<bool>(CheckIsRightAngle);
         }
-
+        
         public Triangle(double sideA, double sideB, double sideC)
         {
             if (sideA <= 0 || sideB <= 0 || sideC <= 0)
@@ -40,23 +43,33 @@ namespace Calculate
             _isRightAngle = new Lazy<bool>(CheckIsRightAngle);
         }
 
-        
         /// <summary>
         /// Checking for right angle
         /// </summary>
         /// <returns></returns>
-        private bool CheckIsRightAngle() => Math.Pow(_sideC, 2) == Math.Pow(_sideA, 2) + Math.Pow(_sideB, 2) ||
-                                            Math.Pow(_sideA, 2) == Math.Pow(_sideC, 2) + Math.Pow(_sideB, 2) || 
-                                            Math.Pow(_sideB, 2) == Math.Pow(_sideA, 2) + Math.Pow(_sideC, 2);
+        private bool CheckIsRightAngle()
+        {
+            var sides = new[] { _sideA, _sideB, _sideC };
+            Array.Sort(sides);
+            var hypotenuse = sides[^1];
 
+            return Math.Abs(Math.Pow(hypotenuse, 2) - Math.Pow(sides[0], 2) - Math.Pow(sides[1], 2)) < Accuracy;
+        }
         
         /// <summary>
         /// Calculate triangle's area
         /// </summary>
-        public override double Area()
+        public double GetArea()
         {
-            var semiPerimeter = 0.5 * (_sideA + _sideB + _sideC);
+            var semiPerimeter = 0.5 * GetPerimeter();
+            
             return Math.Sqrt(semiPerimeter * (semiPerimeter - _sideA) * (semiPerimeter - _sideB) * (semiPerimeter - _sideC));
         }
+
+        
+        /// <summary>
+        /// Calculate triangle's perimeter
+        /// </summary>
+        public double GetPerimeter() => _sideA + _sideB + _sideC;
     }
 }

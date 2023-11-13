@@ -1,16 +1,14 @@
 ﻿using System;
+using Calculate.Interfaces;
 
-namespace Calculate
+namespace Calculate.Implementations
 {
-    public class Circle : Shape
+    public class Circle : IShape
     {
         private readonly double _radius;
         public double Radius => _radius;
-        
-        public Circle()
-        {
-            _radius = 1;
-        }
+
+        public Circle() => _radius = 1;
 
         public Circle(double radius)
         {
@@ -23,6 +21,12 @@ namespace Calculate
         /// <summary>
         /// Calculate circle's area
         /// </summary>
-        public override double Area() => Math.PI * Math.Pow(_radius, 2d);
+        public double GetArea() => Math.PI * Math.Pow(_radius, 2);
+
+
+        /// <summary>
+        /// Calculate circle's perimeter
+        /// </summary>
+        public double GetPerimeter() => 2 * Math.PI * _radius;
     }
 }

@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 using System;
-using Calculate;
+using Calculate.Implementations;
 
 namespace CalculateTest
 {
@@ -10,7 +10,7 @@ namespace CalculateTest
         [TestCase(-1, 3, 2)]
         [TestCase(12, 1, -4)]
         [TestCase(1, 0, 5)]
-        public void TriangleWrongParam(double a, double b, double c)
+        public void GetTriangleWithLessThenZeroParameters(double a, double b, double c)
         {
             Assert.Throws<ArgumentException>(() => new Triangle(a, b, c), "A triangle side can't be less or equal to zero");
         }
@@ -18,13 +18,13 @@ namespace CalculateTest
         [TestCase(1, 3, 2)]
         [TestCase(12, 1, 4)]
         [TestCase(1, 1, 5)]
-        public void IsNotTriangle(double a, double b, double c)
+        public void GetTriangleWithNotValidParameters(double a, double b, double c)
         {
             Assert.Throws<ArgumentException>(() => new Triangle(a, b, c), "Error input, is not a triangle");
         }
 
         [Test]
-        public void TriangleZeroParam()
+        public void CheckTriangleWithZeroParameters()
         {
             var triangle = new Triangle();
 
@@ -36,7 +36,7 @@ namespace CalculateTest
         [TestCase(3, 2, 4)]
         [TestCase(3, 4, 5)]
         [TestCase(15, 10, 6)]
-        public void SquareRightProperty(double a, double b, double c)
+        public void CheckSquareWithRightProperty(double a, double b, double c)
         {
             var triangle = new Triangle(a, b, c);
 
@@ -48,20 +48,32 @@ namespace CalculateTest
         [TestCase(3, 6, 4)]
         [TestCase(8, 5, 5)]
         [TestCase(9, 4, 6)]
-        public void TriangleArea(double a, double b, double c)
+        public void GetTriangleAreaWithValidParameters(double a, double b, double c)
         {
             var triangle = new Triangle(a, b, c);
-
-            var p = 0.5 * (a + b + c);
+            var p = triangle.GetPerimeter() / 2;
+            
             var expected = Math.Sqrt(p * (p - a) * (p - b) * (p - c));
 
-            Assert.AreEqual(triangle.Area(), expected);
+            Assert.AreEqual(triangle.GetArea(), expected);
+        }
+        
+        [TestCase(9.9, 6, 7.9)]
+        [TestCase(11.9, 7, 9.6)]
+        [TestCase(15, 15, 20)]
+        public void GetTrianglePerimeterWithValidParameters(double a, double b, double c)
+        {
+            var triangle = new Triangle(a, b, c);
+            
+            var expected = a + b + c;
+
+            Assert.AreEqual(triangle.GetPerimeter(), expected);
         }
 
         [TestCase(3, 6, 4)]
         [TestCase(8, 5, 5)]
         [TestCase(9, 4, 6)]
-        public void IsNotRightAngleTriangle(double a, double b, double c)
+        public void CheckIsNotRightAngleTriangle(double a, double b, double c)
         {
             var triangle = new Triangle(a, b, c);
 
@@ -71,7 +83,7 @@ namespace CalculateTest
         [TestCase(3, 4, 5)]
         [TestCase(13, 5, 12)]
         [TestCase(8, 10, 6)]
-        public void IsRightAngleTriangle(double a, double b, double c)
+        public void ChetIsRightAngleTriangle(double a, double b, double c)
         {
             var triangle = new Triangle(a, b, c);
 
