@@ -8,7 +8,8 @@
 
 ### Code from Task№2
 
-`` create table Products
+```
+create table Products
 (
     Id int identity not null primary key,
     Name varchar(255)
@@ -44,4 +45,5 @@ from Products p
 	left join ProductsCategories pc 
 		on p.Id = pc.ProductId
 	left join Categories c 
-		on c.Id = pc.CategoryId; ``
+		on c.Id = pc.CategoryId; 
+```
